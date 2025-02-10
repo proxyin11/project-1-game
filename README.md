@@ -1,77 +1,59 @@
-# project-1-game
-"Snake, Water, Gun is a fun, simple hand game for two players, similar to Rock, Paper, Scissors. Each player simultaneously chooses one of three options: snake, water, or gun. 
-# Snake, Water, Gun Game
+ import random
 
-This is a simple Python implementation of the classic game "Snake, Water, Gun." The game is played between the computer and a person. The rules are as follows:
+# Function to determine the winner of the game
+def gamewin(computer, person):
+    # If both choose the same option, it's a tie
+    if computer == person:
+        return None
+    
+    # Computer chose Snake (s)
+    elif computer == 's':
+        if person == 'w':  # Person chose Water (w)
+            return False  # Computer wins
+        elif person == 'g':  # Person chose Gun (g)
+            return True  # Person wins
+    
+    # Computer chose Water (w)
+    elif computer == 'w':
+        if person == 'g':  # Person chose Gun (g)
+            return False  # Computer wins
+        elif person == 's':  # Person chose Snake (s)
+            return True  # Person wins
+    
+    # Computer chose Gun (g)
+    elif computer == 'g':
+        if person == 's':  # Person chose Snake (s)
+            return False  # Computer wins
+        elif person == 'w':  # Person chose Water (w)
+            return True  # Person wins
 
-- **Snake (s)** beats **Water (w)**
-- **Water (w)** beats **Gun (g)**
-- **Gun (g)** beats **Snake (s)**
 
-If both the computer and the person choose the same option, the game is a tie.
+# Main game logic
+if __name__ == "__main__":
+    # Computer's turn: Randomly select Snake (s), Water (w), or Gun (g)
+    print("Computer's turn: Snake (s), Water (w), Gun (g)")
+    random_number = random.randint(1, 3)
+    if random_number == 1:
+        computer = 's'  # Snake
+    elif random_number == 2:
+        computer = 'w'  # Water
+    elif random_number == 3:
+        computer = 'g'  # Gun
 
-## How to Play
+    # Person's turn: Input choice
+    person = input("Your turn: Snake (s), Water (w), Gun (g): ").lower()
 
-1. **Run the Python script** in your preferred Python environment.
-2. **Input your choice** when prompted:
-   - `s` for Snake
-   - `w` for Water
-   - `g` for Gun
-3. The **computer will randomly select** one of the three options.
-4. The **result** will be displayed, indicating whether you won, lost, or if the game was a tie.
+    # Determine the result of the game
+    result = gamewin(computer, person)
 
-## Code Explanation
+    # Display choices
+    print(f"Computer chose: {computer}")
+    print(f"You chose: {person}")
 
-### Function: `gamewin(computer, person)`
-
-This function determines the winner based on the choices of the computer and the person.
-
-- **Parameters:**
-  - `computer`: The choice made by the computer (`s`, `w`, or `g`).
-  - `person`: The choice made by the person (`s`, `w`, or `g`).
-
-- **Returns:**
-  - `True` if the person wins.
-  - `False` if the computer wins.
-  - `None` if the game is a tie.
-
-### Main Game Logic
-
-1. The **computer's choice** is determined using `random.randint(1, 3)`:
-   - `1` corresponds to Snake (`s`).
-   - `2` corresponds to Water (`w`).
-   - `3` corresponds to Gun (`g`).
-
-2. The **person's choice** is taken as input from the user.
-
-3. The `gamewin` function is called with the computer's and person's choices.
-
-4. The **result** is printed based on the return value of the `gamewin` function:
-   - If `None`, the game is a tie.
-   - If `True`, the person wins.
-   - If `False`, the computer wins.
-
-## Example Output
-
-```
-computer turn: snake(s), water(w), gun(g)
-person turn: snake(s), water(w), gun(g)
-computer chose s
-person chose w
-you lose
-```
-
-## Requirements
-
-- Python 3.x
-- `random` module (included in Python's standard library)
-
-## How to Run
-
-1. Save the code in a file, e.g., `snake_water_gun.py`.
-2. Run the script using Python:
-   ```bash
-   python snake_water_gun.py
-   ```
-
-Enjoy the game!
+    # Display the result
+    if result == None:
+        print("The game is a tie!")
+    elif result:
+        print("Congratulations! You win!")
+    else:
+        print("You lose! Better luck next time.")
